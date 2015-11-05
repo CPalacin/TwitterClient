@@ -1,0 +1,6 @@
+<resources>
+    <color name="primaryColor">#4099FF</color>
+    <color name="primaryColorDark">#FF0A77F5</color>
+    <color name="accentColor">#FFFFA000</color>
+    <color name="accentColorPressed">#FFC107</color>
+</resources>

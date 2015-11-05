@@ -1,6 +1,8 @@
-package com.codepath.apps.restclienttemplate;
+package com.crubio.twitterclient.application;
 
 import android.content.Context;
+
+import com.crubio.twitterclient.clients.TwitterClient;
 
 /*
  * This is the Android application itself and is used to configure various settings
@@ -20,7 +22,7 @@ public class RestApplication extends com.activeandroid.app.Application {
 		RestApplication.context = this;
 	}
 
-	public static RestClient getRestClient() {
-		return (RestClient) RestClient.getInstance(RestClient.class, RestApplication.context);
+	public static TwitterClient getRestClient() {
+		return (TwitterClient) TwitterClient.getInstance(TwitterClient.class, RestApplication.context);
 	}
 }

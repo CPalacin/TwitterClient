@@ -1,0 +1,12 @@
+<resources>
+    <color name="primaryColor">#125688</color>
+    <color name="primaryColorDark">#0F4973</color>
+    <color name="accentColor">#FFFFA000</color>
+    <color name="accentColorPressed">#FFC107</color>
+    <color name="listColor">#DD3F51B5</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#000000</color>
+    <color name="red">#CCF44336</color>
+    <color name="background">#ffffffff</color>
+    <color name="grayText">#545454</color>
+</resources>
