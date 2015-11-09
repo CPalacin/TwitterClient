@@ -3,13 +3,17 @@ package com.crubio.twitterclient.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.codepath.apps.restclienttemplate.R;
+import com.crubio.twitterclient.R;
 import com.crubio.twitterclient.models.Tweet;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,7 +36,23 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
     @Override
     public void onBindViewHolder(TweetsHolder holder, int position) {
         final Tweet tweet = tweets.get(position);
-        holder.tweet.setText(Html.fromHtml(tweet.getBody()));
+//        Log.i("Tweet", tweet.toString());
+        holder.tweet.setText(Html.fromHtml(tweet.getTweet()));
+        final String timestamp = tweet.getTimestamp();
+        holder.timestamp.setText(replaceBySuffix(timestamp));
+        Picasso.with(context).load(tweet.getUserProfileImage()).into(holder.userProfileImage);
+        holder.user.setText("@" + tweet.getUser());
+        holder.userName.setText(tweet.getUserName());
+        if(tweet.getRetweets() != null && !tweet.getRetweets().equals("0")){
+            holder.retweets.setText(tweet.getRetweets());
+        }else{
+            holder.retweets.setText(null);
+        }
+        if(tweet.getFavourites() != null && !tweet.getFavourites().equals("0")){
+            holder.favourites.setText(tweet.getFavourites());
+        }else{
+            holder.favourites.setText(null);
+        }
     }
 
     @Override
@@ -45,13 +65,43 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public static class TweetsHolder extends RecyclerView.ViewHolder {
-        public TextView tweet;
-
-        private TweetsHolder(View itemView) {
-            super(itemView);
-            tweet = (TextView)itemView.findViewById(R.id.tv_tweet);
-        }
+    private String replaceBySuffix(String timestamp){
+        String relativeDate = replace(timestamp, context.getString(R.string.day), context.getString(R.string.daySuffix));
+        relativeDate = replace(relativeDate, context.getString(R.string.hour), context.getString(R.string.hourSuffix));
+        relativeDate = replace(relativeDate, context.getString(R.string.minute), context.getString(R.string.minuteSuffix));
+        return replace(relativeDate, context.getString(R.string.second), context.getString(R.string.secondSuffix));
     }
 
+    private String replace(String timestamp, String target, String replacement){
+        String relativeDate = timestamp;
+        if( timestamp.contains(target)){
+            relativeDate = relativeDate.replace(" "+target, replacement);
+        } else if (timestamp.contains(target.substring(0, target.length()-1))){
+            relativeDate = relativeDate.replace(" "+target.substring(0, target.length()-1), replacement);
+        }
+        return relativeDate;
+    }
+
+    public static class TweetsHolder extends RecyclerView.ViewHolder {
+        public TextView tweet;
+        public ImageView userProfileImage;
+        public TextView user;
+        public TextView userName;
+        public TextView retweets;
+        public TextView favourites;
+
+
+        public TextView timestamp;
+        private TweetsHolder(View itemView) {
+            super(itemView);
+            tweet = (TextView) itemView.findViewById(R.id.tv_tweet);
+            userProfileImage = (ImageView) itemView.findViewById(R.id.iv_user);
+            user = (TextView) itemView.findViewById(R.id.tv_user);
+            userName = (TextView) itemView.findViewById(R.id.tv_username);
+            timestamp = (TextView) itemView.findViewById(R.id.tv_timestamp);
+            retweets = (TextView) itemView.findViewById(R.id.tv_retweet);
+            favourites = (TextView) itemView.findViewById(R.id.tv_like);
+        }
+
+    }
 }

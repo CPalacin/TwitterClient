@@ -3,5 +3,14 @@
 
     <string name="app_name">Twitter Client</string>
     <string name="login_label">Log in</string>
-
+    <string name="daySuffix">d</string>
+    <string name="hourSuffix">h</string>
+    <string name="minuteSuffix">m</string>
+    <string name="secondSuffix">s</string>
+    <string name="day">days</string>
+    <string name="hour">hours</string>
+    <string name="minute">minutes</string>
+    <string name="second">seconds</string>
+    <string name="action_twitter">twitter</string>
+    <string name="tweet_hint">What\'s happening?</string>
 </resources>

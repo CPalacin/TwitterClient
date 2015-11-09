@@ -3,6 +3,16 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryColorDark</item>
         <item name="colorAccent">@color/accentColor</item>
-        <item name="android:windowBackground">@android:color/darker_gray</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorControlNormal">#FFFFFFFF</item>
+        <item name="android:dialogTheme">@style/AppDialogTheme</item>
+    </style>
+
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+
     </style>
 </resources>

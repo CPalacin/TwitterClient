@@ -1,13 +1,13 @@
 package com.crubio.twitterclient.clients;
 
-import org.scribe.builder.api.Api;
-import org.scribe.builder.api.TwitterApi;
-
 import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.scribe.builder.api.Api;
+import org.scribe.builder.api.TwitterApi;
 
 public class TwitterClient extends OAuthBaseClient {
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
@@ -32,5 +32,10 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("status", body);
 		getClient().post(apiUrl, params, handler);
+	}
+
+	public void getUserInfo(AsyncHttpResponseHandler handle){
+		String apiUrl = getApiUrl("account/verify_credentials.json");
+		getClient().get(apiUrl, handle);
 	}
 }

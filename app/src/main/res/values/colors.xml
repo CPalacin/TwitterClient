@@ -1,6 +1,10 @@
 <resources>
-    <color name="primaryColor">#4099FF</color>
-    <color name="primaryColorDark">#FF0A77F5</color>
-    <color name="accentColor">#FFFFA000</color>
-    <color name="accentColorPressed">#FFC107</color>
+    <color name="primaryColor">#55ACEE</color>
+    <color name="primaryColorLight">#8dc7f2</color>
+    <color name="primaryColorDark">#1C6399</color>
+    <color name="accentColor">#55ACEE</color>
+    <color name="accentColorPressed">#55ACEE</color>
+    <color name="lighter_gray">#9BA8B3</color>
+    <color name="dark">#1B2328</color>
+    <color name="background">#292f33</color>
 </resources>

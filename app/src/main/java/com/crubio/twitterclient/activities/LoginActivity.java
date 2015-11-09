@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-import com.codepath.apps.restclienttemplate.R;
-import com.crubio.twitterclient.clients.TwitterClient;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
+import com.crubio.twitterclient.R;
+import com.crubio.twitterclient.clients.TwitterClient;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 
