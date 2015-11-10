@@ -3,6 +3,7 @@ package com.crubio.twitterclient.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,9 @@ public class Detail extends Fragment {
         TextView timestamp = (TextView) rootView.findViewById(R.id.tv_timestamp);
         TextView retweets = (TextView) rootView.findViewById(R.id.tv_retweet);
         TextView favourites = (TextView) rootView.findViewById(R.id.tv_like);
-
+        ImageView media = (ImageView) rootView.findViewById(R.id.iv_media);
+        Picasso.with(getActivity()).load(tweet.getMediaUrl()).into(media);
+        Log.i(CLASS, "" + tweet.getMediaUrl());
         ImageView reply = (ImageView) rootView.findViewById(R.id.iv_reply);
         reply.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +58,33 @@ public class Detail extends Fragment {
             }
         });
 
-        tweetText.setText(Html.fromHtml(tweet.getTweet()));
+        TextView retweetMsg = (TextView) rootView.findViewById(R.id.tv_retweetmsg);
+        ImageView retweetIcon = (ImageView) rootView.findViewById(R.id.iv_retweeticon);
+        if(!tweet.isRetweet()) {
+            retweetMsg.setVisibility(View.GONE);
+            retweetIcon.setVisibility(View.GONE);
+            tweetText.setText(Html.fromHtml(tweet.getTweet()));
+            user.setText("@" + tweet.getUser());
+            userName.setText(tweet.getUserName());
+            Picasso.with(getActivity()).load(tweet.getUserProfileImage()).into(userProfileImage);
+        }else{
+            retweetMsg.setVisibility(View.VISIBLE);
+            retweetMsg.setText(tweet.getUserName() + " Retweeted");
+            retweetIcon.setVisibility(View.VISIBLE);
+            String userTxt = "@" + tweet.getRetweet().getUser();
+            String retweetText = tweet.getRetweet().getTweet();
+            retweetText = retweetText.replace("RT " + userTxt + ": ", "");
+            tweetText.setText(Html.fromHtml(retweetText));
+            user.setText("@" + tweet.getRetweet().getUser());
+            userName.setText(tweet.getRetweet().getUserName());
+            Picasso.with(getActivity()).load(tweet.getRetweet().getUserProfileImage()).into(userProfileImage);
+        }
+
         final String time = tweet.getTimestamp();
         timestamp.setText(replaceBySuffix(time));
-        Picasso.with(getActivity()).load(tweet.getUserProfileImage()).into(userProfileImage);
-        user.setText("@" + tweet.getUser());
-        userName.setText(tweet.getUserName());
-        if(tweet.getRetweets() != null && !tweet.getRetweets().equals("0")){
+
+
+        if (tweet.getRetweets() != null && !tweet.getRetweets().equals("0")){
             retweets.setText(tweet.getRetweets());
         }else{
             retweets.setText(null);

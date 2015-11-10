@@ -3,8 +3,6 @@ package com.crubio.twitterclient.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,12 +35,28 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
     public void onBindViewHolder(TweetsHolder holder, int position) {
         final Tweet tweet = tweets.get(position);
 //        Log.i("Tweet", tweet.toString());
-        holder.tweet.setText(Html.fromHtml(tweet.getTweet()));
         final String timestamp = tweet.getTimestamp();
         holder.timestamp.setText(replaceBySuffix(timestamp));
-        Picasso.with(context).load(tweet.getUserProfileImage()).into(holder.userProfileImage);
-        holder.user.setText("@" + tweet.getUser());
-        holder.userName.setText(tweet.getUserName());
+
+        if(!tweet.isRetweet()) {
+            holder.retweetMsg.setVisibility(View.GONE);
+            holder.retweetIcon.setVisibility(View.GONE);
+            holder.tweet.setText(Html.fromHtml(tweet.getTweet()));
+            holder.user.setText("@" + tweet.getUser());
+            holder.userName.setText(tweet.getUserName());
+            Picasso.with(context).load(tweet.getUserProfileImage()).into(holder.userProfileImage);
+        }else{
+            holder.retweetMsg.setVisibility(View.VISIBLE);
+            holder.retweetMsg.setText(tweet.getUserName() + " Retweeted");
+            holder.retweetIcon.setVisibility(View.VISIBLE);
+            String user = "@" + tweet.getRetweet().getUser();
+            String tweetText = tweet.getRetweet().getTweet();
+            tweetText = tweetText.replace("RT " + user + ": ", "");
+            holder.tweet.setText(Html.fromHtml(tweetText));
+            holder.user.setText(user);
+            holder.userName.setText(tweet.getRetweet().getUserName());
+            Picasso.with(context).load(tweet.getRetweet().getUserProfileImage()).into(holder.userProfileImage);
+        }
         if(tweet.getRetweets() != null && !tweet.getRetweets().equals("0")){
             holder.retweets.setText(tweet.getRetweets());
         }else{
@@ -89,6 +103,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
         public TextView userName;
         public TextView retweets;
         public TextView favourites;
+        public ImageView retweetIcon;
+        public TextView retweetMsg;
 
 
         public TextView timestamp;
@@ -101,6 +117,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             timestamp = (TextView) itemView.findViewById(R.id.tv_timestamp);
             retweets = (TextView) itemView.findViewById(R.id.tv_retweet);
             favourites = (TextView) itemView.findViewById(R.id.tv_like);
+            retweetIcon = (ImageView) itemView.findViewById(R.id.iv_retweeticon);
+            retweetMsg = (TextView) itemView.findViewById(R.id.tv_retweetmsg);
         }
 
     }

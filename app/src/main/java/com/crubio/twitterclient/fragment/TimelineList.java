@@ -22,7 +22,6 @@ import com.crubio.twitterclient.clients.TwitterClient;
 import com.crubio.twitterclient.listeners.EndlessRecyclerOnScrollListener;
 import com.crubio.twitterclient.models.Tweet;
 import com.crubio.twitterclient.util.ItemClickSupport;
-import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -118,7 +117,7 @@ public class TimelineList extends Fragment{
             client.getHomeTimeline(page, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
-                    Log.i(CLASS, "timeline: " + jsonArray.toString());
+//                    Log.i(CLASS, "timeline: " + jsonArray.toString());
                     // Load json array into model classes
                     tweets.addAll(Tweet.fromJson(jsonArray));
                     swipeContainer.setRefreshing(false);
