@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,7 +16,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.crubio.twitterclient.R;
+import com.crubio.twitterclient.adapters.TwitterPagerAdapter;
 import com.crubio.twitterclient.fragment.Detail;
 import com.crubio.twitterclient.fragment.TimelineList;
 import com.crubio.twitterclient.fragment.WriteTweet;
@@ -32,7 +35,17 @@ public class TimelineActivity extends AppCompatActivity implements TimelineList.
         setContentView(R.layout.activity_timeline);
 
         toolbarCreation();
-        switchToTimelineList();
+
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new TwitterPagerAdapter(getSupportFragmentManager()));
+
+        // Give the PagerSlidingTabStrip the ViewPager
+        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        // Attach the view pager to the tab strip
+        tabsStrip.setViewPager(viewPager);
+
+//        switchToTimelineList();
     }
 
 
@@ -52,7 +65,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineList.
     private void switchFragment(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.contentFragment, fragment);
+//        transaction.add(R.id.contentFragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

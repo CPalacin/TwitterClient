@@ -55,7 +55,7 @@ public class TimelineList extends Fragment{
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(R.color.primaryColor);
 
-
+        Log.i("onCreateView", "onCreateView");
         // Retrieving the RecyclerView from the fragment layout
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rv);
 
@@ -117,7 +117,7 @@ public class TimelineList extends Fragment{
             client.getHomeTimeline(page, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray jsonArray) {
-//                    Log.i(CLASS, "timeline: " + jsonArray.toString());
+                    Log.i(CLASS, "timeline: " + jsonArray.toString());
                     // Load json array into model classes
                     tweets.addAll(Tweet.fromJson(jsonArray));
                     swipeContainer.setRefreshing(false);

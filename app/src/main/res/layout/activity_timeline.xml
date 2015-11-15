@@ -1,5 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,9 +8,23 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <FrameLayout
-        android:id="@+id/contentFragment"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tabs"
+            app:pstsShouldExpand="true"
+            app:pstsTextAllCaps="true"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:pstsUnderlineColor="@color/primaryColor"
+            android:textColor="@color/primaryColor"
+            app:pstsDividerColor="@color/primaryColor"
+            app:pstsIndicatorColor="@color/primaryColor"
+            android:background="@color/dark"
+            />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white" />
+
 </LinearLayout>
