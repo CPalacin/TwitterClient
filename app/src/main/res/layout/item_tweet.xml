@@ -105,7 +105,6 @@
                 android:textColor="@color/dark"
                 android:autoLink="all"
                 android:linksClickable="true"
-
                 />
 
             <LinearLayout

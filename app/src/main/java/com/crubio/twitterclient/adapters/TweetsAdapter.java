@@ -1,6 +1,7 @@
 package com.crubio.twitterclient.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crubio.twitterclient.R;
+import com.crubio.twitterclient.activities.ProfileActivity;
 import com.crubio.twitterclient.models.Tweet;
 import com.squareup.picasso.Picasso;
 
@@ -44,6 +46,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             holder.tweet.setText(Html.fromHtml(tweet.getTweet()));
             holder.user.setText("@" + tweet.getUser());
             holder.userName.setText(tweet.getUserName());
+            holder.userProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProfile(tweet.getUserId());
+                }
+            });
             Picasso.with(context).load(tweet.getUserProfileImage()).into(holder.userProfileImage);
         }else{
             holder.retweetMsg.setVisibility(View.VISIBLE);
@@ -55,6 +63,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             holder.tweet.setText(Html.fromHtml(tweetText));
             holder.user.setText(user);
             holder.userName.setText(tweet.getRetweet().getUserName());
+            holder.userProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openProfile(tweet.getRetweet().getUserId());
+                }
+            });
             Picasso.with(context).load(tweet.getRetweet().getUserProfileImage()).into(holder.userProfileImage);
         }
         if(tweet.getRetweets() != null && !tweet.getRetweets().equals("0")){
@@ -94,6 +108,12 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             relativeDate = relativeDate.replace(" "+target.substring(0, target.length()-1), replacement);
         }
         return relativeDate;
+    }
+
+    protected void openProfile(String userId) {
+        Intent i = new Intent(context , ProfileActivity.class);
+        i.putExtra(ProfileActivity.ID, userId);
+        context.startActivity(i);
     }
 
     public static class TweetsHolder extends RecyclerView.ViewHolder {

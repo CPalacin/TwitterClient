@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_background_image"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cv_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:cardUseCompatPadding="true"
+            card_view:cardElevation="0dp"
+            android:layout_marginLeft="20dp"
+            card_view:cardCornerRadius="8dp">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:padding="4dp"
+                android:background="@android:color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                card_view:cardUseCompatPadding="true"
+                card_view:cardElevation="0dp"
+                card_view:cardCornerRadius="8dp">
+                <ImageView
+                    android:id="@+id/iv_profile_image"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:scaleType="centerCrop"/>
+                </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cv_profile_image"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/dark"
+            android:textSize="20sp"
+            android:layout_alignLeft="@+id/cv_profile_image"
+            android:layout_alignStart="@+id/cv_profile_image" />
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/dark"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@+id/tv_username"
+            android:layout_alignLeft="@+id/tv_username"
+            android:layout_alignStart="@+id/tv_username" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/dark"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@+id/tv_user"
+            android:layout_alignLeft="@+id/tv_user"
+            android:layout_alignStart="@+id/tv_user" />
+
+
+        <TextView
+            android:id="@+id/tv_num_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/dark"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@+id/tv_description"
+            android:layout_alignLeft="@+id/tv_description"
+            android:layout_alignStart="@+id/tv_description" />
+
+        <TextView
+            android:id="@+id/tv_following"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FOLLOWING"
+            android:textColor="@color/lighter_gray"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@+id/tv_description"
+            android:layout_toRightOf="@+id/tv_num_following" />
+
+        <TextView
+            android:id="@+id/tv_num_followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@+id/tv_description"
+            android:layout_toRightOf="@+id/tv_following" />
+
+        <TextView
+            android:id="@+id/tv_followers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FOLLOWERS"
+            android:textColor="@color/lighter_gray"
+            android:layout_marginTop="7dp"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_below="@+id/tv_description"
+            android:layout_toRightOf="@+id/tv_num_followers" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_alignLeft="@+id/tv_description"
+            android:layout_below="@+id/tv_followers"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.crubio.twitterclient.R;
 import com.crubio.twitterclient.application.RestApplication;
 import com.crubio.twitterclient.clients.TwitterClient;
-import com.crubio.twitterclient.models.User;
+import com.crubio.twitterclient.models.UserStatus;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
@@ -38,7 +38,7 @@ public class WriteTweet extends DialogFragment{
     private EditText tweet;
     private ImageView profileImage;
     private ImageView close;
-    private User user;
+    private UserStatus userStatus;
     private TextView characters;
     private Button send;
 
@@ -136,12 +136,12 @@ public class WriteTweet extends DialogFragment{
 
     private void fetchUser(){
         TwitterClient client = RestApplication.getRestClient();
-        client.getUserInfo(new JsonHttpResponseHandler() {
+        client.getUserStatus(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
-                user = new User(jsonObject);
+                userStatus = new UserStatus(jsonObject);
                 Picasso.with(getActivity())
-                       .load(user.getUserProfileImage())
+                        .load(userStatus.getUserProfileImage())
                         .into(profileImage);
             }
 

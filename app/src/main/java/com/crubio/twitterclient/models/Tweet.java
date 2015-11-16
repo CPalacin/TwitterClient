@@ -26,6 +26,8 @@ public class Tweet extends Model implements Parcelable {
     // Define database columns and associated fields
     @Column(name = "tweetId", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     String tweetId;
+    @Column(name = "userId")
+    String userId;
     @Column(name = "userProfileImage")
     String userProfileImage;
     @Column(name = "userName")
@@ -67,6 +69,7 @@ public class Tweet extends Model implements Parcelable {
             this.tweet = object.getString("text");
             this.retweets = object.getString("retweet_count");
             this.favourites = object.getString("favorite_count");
+            this.userId = user.getString("id_str");
 
             JSONObject entities = object.getJSONObject("entities");
             if (entities.has("media")){
@@ -198,10 +201,19 @@ public class Tweet extends Model implements Parcelable {
         return retweet != null;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "Tweet{" +
                 "tweetId='" + tweetId + '\'' +
+                ", userId='" + userId + '\'' +
                 ", userProfileImage='" + userProfileImage + '\'' +
                 ", userName='" + userName + '\'' +
                 ", user='" + user + '\'' +
@@ -247,6 +259,7 @@ public class Tweet extends Model implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.tweetId);
+        dest.writeString(this.userId);
         dest.writeString(this.userProfileImage);
         dest.writeString(this.userName);
         dest.writeString(this.user);
@@ -260,6 +273,7 @@ public class Tweet extends Model implements Parcelable {
 
     protected Tweet(Parcel in) {
         this.tweetId = in.readString();
+        this.userId = in.readString();
         this.userProfileImage = in.readString();
         this.userName = in.readString();
         this.user = in.readString();
