@@ -5,14 +5,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
+import com.crubio.twitterclient.fragment.DirectMessages;
 import com.crubio.twitterclient.fragment.GenericTweetsList;
 import com.crubio.twitterclient.fragment.MentionsList;
 import com.crubio.twitterclient.fragment.TimelineList;
 
 public class TwitterPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 2;
-    private String tabTitles[] = new String[] { "Home", "Mentions" };
+    final int PAGE_COUNT = 3;
+    private String tabTitles[] = new String[] { "Home", "Mentions", "Messages" };
     private GenericTweetsList.OnTweetDetailListener onTweetDetailListener;
+    private DirectMessages directMessages;
 
     public TwitterPagerAdapter(FragmentManager fm, GenericTweetsList.OnTweetDetailListener onTweetDetailListener) {
         super(fm);
@@ -29,18 +31,20 @@ public class TwitterPagerAdapter extends FragmentPagerAdapter {
         GenericTweetsList f = null;
         switch (position){
             case 0:
-                Log.i("TwitterPagerAdapter","TimelineList");
                 f = new TimelineList();
-                break;
+                f.setOnTweetDetailListener(onTweetDetailListener);
+                return f;
             case 1:
-                Log.i("TwitterPagerAdapter","MentionsList");
                 f = new MentionsList();
-                break;
+                f.setOnTweetDetailListener(onTweetDetailListener);
+                return f;
+            case 2:
+                directMessages = new DirectMessages();
+                directMessages.setOnTweetDetailListener(onTweetDetailListener);
+                return directMessages;
             default:
-                throw new UnsupportedOperationException("The maximum number of tabs is two.");
+                throw new UnsupportedOperationException("The maximum number of tabs is three.");
         }
-        f.setOnTweetDetailListener(onTweetDetailListener);
-        return f;
     }
 
     @Override

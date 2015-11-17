@@ -50,6 +50,7 @@
         <activity android:name="com.crubio.twitterclient.activities.TimelineActivity" />
         <activity android:name="com.crubio.twitterclient.activities.ProfileActivity" />
         <activity android:name="com.crubio.twitterclient.activities.DetailActivity" />
+        <activity android:name="com.crubio.twitterclient.activities.SearchActivity" />
     </application>
 
 </manifest>

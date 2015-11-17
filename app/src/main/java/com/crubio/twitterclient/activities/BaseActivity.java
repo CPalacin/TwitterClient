@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -33,7 +34,7 @@ import org.json.JSONObject;
 public abstract class BaseActivity extends AppCompatActivity implements GenericTweetsList.OnTweetDetailListener{
     private static final String CLASS = BaseActivity.class.getSimpleName();
     protected Toolbar toolbar;
-    private String userId;
+    protected String userId;
     private MenuItem miActionProgressItem;
 
     @Override
@@ -48,8 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity implements GenericT
             client.getUserStatus(new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
-                    UserStatus userStatus = new UserStatus(jsonObject);
-                    userId = userStatus.getId();
+                    storeUserId(jsonObject);
                 }
 
                 @Override
@@ -58,6 +58,11 @@ public abstract class BaseActivity extends AppCompatActivity implements GenericT
                 }
             });
         }
+    }
+
+    protected void storeUserId(JSONObject jsonObject) {
+        UserStatus userStatus = new UserStatus(jsonObject);
+        userId = userStatus.getId();
     }
 
 
@@ -85,6 +90,23 @@ public abstract class BaseActivity extends AppCompatActivity implements GenericT
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.timeline, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent i = new Intent(BaseActivity.this, SearchActivity.class);
+                i.putExtra(SearchActivity.QUERY, query);
+                startActivity(i);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
         onStartRefresh();
         return super.onCreateOptionsMenu(menu);
     }

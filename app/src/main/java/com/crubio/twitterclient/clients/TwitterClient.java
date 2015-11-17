@@ -14,8 +14,8 @@ public class TwitterClient extends OAuthBaseClient {
 	private static final String CLASS = TwitterClient.class.getSimpleName();
 	public static final Class<? extends Api> REST_API_CLASS = TwitterApi.class; // Change this
 	public static final String REST_URL = "https://api.twitter.com/1.1"; // Change this, base API URL
-	public static final String REST_CONSUMER_KEY = "quhmogQ8qMnlwzsd04SrsGY75";       // Change this
-	public static final String REST_CONSUMER_SECRET = "jQbVHBgbVnl7B13xpAF1BBChonG4lTuN4tHfHe86kPcuCO8tnT"; // Change this
+	public static final String REST_CONSUMER_KEY = "35Rjoy1WbCRkhHnvS7RIwoKUj";       // Change this
+	public static final String REST_CONSUMER_SECRET = "1SlyokyhdPFbsFgEqibjXYKuC8oUnt25c7XIUsTSkOhIaDqyJx"; // Change this
 	public static final String REST_CALLBACK_URL = "oauth://twitterclient"; // Change this (here and in manifest)
 
 	public TwitterClient(Context context) {
@@ -66,6 +66,20 @@ public class TwitterClient extends OAuthBaseClient {
 		String apiUrl = getApiUrl("users/show.json");
 		RequestParams params = new RequestParams();
 		params.put("user_id", userId);
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getSearch(String q, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("search/tweets.json");
+		RequestParams params = new RequestParams();
+		params.put("q", q);
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getMessages(int page, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("direct_messages.json");
+		RequestParams params = new RequestParams();
+		params.put("page", String.valueOf(page));
 		getClient().get(apiUrl, params, handler);
 	}
 }

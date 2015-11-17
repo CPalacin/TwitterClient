@@ -25,8 +25,11 @@ import com.crubio.twitterclient.fragment.GenericTweetsList;
 import com.crubio.twitterclient.fragment.WriteTweet;
 import com.crubio.twitterclient.models.Tweet;
 
-public class TimelineActivity extends BaseActivity implements Detail.OnReplyListener {
+import org.json.JSONObject;
+
+public class TimelineActivity extends BaseActivity implements Detail.OnReplyListener{
     private static final String CLASS = TimelineActivity.class.getSimpleName();
+    private TwitterPagerAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,8 @@ public class TimelineActivity extends BaseActivity implements Detail.OnReplyList
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new TwitterPagerAdapter(getSupportFragmentManager(), this));
+        adapter = new TwitterPagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setAdapter(adapter);
 
         // Give the PagerSlidingTabStrip the ViewPager
         PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -60,8 +64,9 @@ public class TimelineActivity extends BaseActivity implements Detail.OnReplyList
         }
     }
 
+
     @Override
     protected void refresh() {
-        //TODO
     }
+
 }

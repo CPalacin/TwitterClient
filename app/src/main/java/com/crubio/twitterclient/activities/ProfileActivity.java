@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -110,6 +111,14 @@ public class ProfileActivity extends BaseActivity {
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)){
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
